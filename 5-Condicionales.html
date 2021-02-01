@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h2>Condicionales IF - ELSE- ELSE IF</h2>
+    <pre>
+        // Simple
+        let num = 5;
+        if (num > 0) console.log(`${num} es mayor de 0`);
+
+        if (num > 0) {
+            console.log(`${num} es mayor de 0`);
+            console.log('validacion exitoso');
+        }
+
+        // Compuesto
+        num = -2;
+        console.log(`${num}`);
+            
+        if (num > 0) {
+            console.log(`${num} es mayor de 0`);
+        } else {
+            console.log(`${num} es menor de 0`);
+        }
+
+        // Multiple
+
+        num = 0;
+        console.log(`${num}`);
+            
+        if (num > 0) {
+            console.log(`${num} es mayor de 0`);
+        } else if (num < 0){
+            console.log(`${num} es menor de 0`);
+        } else {
+            console.log(`${num} es igual a 0`);
+        }
+        /*Operadores Logicos
+        && and
+        || or
+        */
+
+        let num1 = 3, num2 = -2;
+
+        if(num1 > 0 && num2 > 0)
+        {
+            console.log(`${num1} y ${num2} son mayores a 0`);
+        }
+
+        if(num1 > 0 || num2 > 0)
+        {
+            console.log(`${num1} o ${num2} son mayores a 0`);
+        }
+
+        let word = 'Hello World';
+
+        if(word.length > 5)
+        {
+            console.log(`${word} tiene mas de 5 letras`);
+        } else if(word.length < 5) {
+            console.log(`${word} tiene menos de 5 letras`);
+        } else {
+            console.log(`${word} tiene 5 letras`);
+        }
+
+        let respuesta = true;
+        if(respuesta == true) console.log(`Respuesta tiene un true`);
+        if(respuesta) console.log(`Respuesta tiene un true[metodo 2]`);
+
+        respuesta = false;
+        if(respuesta == false) console.log(`Respuesta tiene un false`)
+        if(!respuesta) console.log(`Respuesta tiene un false[metodo 2]`)
+
+    </pre>
+    <script src="./scripts/5-script.js"></script>
+</body>
+</html>
