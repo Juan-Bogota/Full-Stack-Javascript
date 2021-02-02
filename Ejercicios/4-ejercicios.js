@@ -270,6 +270,8 @@ const decimalBinario = (number, converter) => {
         }
 }
 }
+// binario a decimal parseInt(numero, base)
+// numero.toString(2) decimal a bianrio
 
 // 16) Programa una función que devuelva el monto final después de aplicar un descuento a una cantidad dada
 //pe. miFuncion(1000, 20) devolverá 800.
@@ -289,11 +291,13 @@ const descuento = (precio = 0, descuento = 0) => {
 
 console.log(`--------PUNTO 17 fechas-----> function: fecha(new Date(1984,4,23)) devolverá 35 años (en 2021)`);
 
-const fecha = (date) => {
-    let now = new Date();
-    let anios = now.getFullYear() - date.getFullYear();
-    if (date.getMonth() > now.getMonth()) anios -= 1;
-    
-    if (date.getMonth() ===  now.getMonth() && date.getDate() > now.getDate()) anios -= 1;
-    return console.log(`La edad es ${anios} años`);
+const fecha = (date = undefined) => {
+    if(date instanceof Date){
+        let now = new Date();
+        let anios = now.getFullYear() - date.getFullYear();
+        if (date.getMonth() > now.getMonth()) anios -= 1;
+        if (date.getMonth() ===  now.getMonth() && date.getDate() > now.getDate()) anios -= 1;
+        return (anios>1) ?  console.log(`La edad es ${anios} años`): (anios<0) ? console.log(`Faltan ${Math.abs(anios)} años para llegar al año ${date.getFullYear()}`): console.log(`Estamos en el año ${date.getFullYear()}`);
+    }
+    return console.warn(`No es una fecha valida o esta vacio`);
 }
