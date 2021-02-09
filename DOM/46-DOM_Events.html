@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOM</title>
+    <style>
+        :root {
+            --yellow-color: #F7DF1E;
+            --dark-color: #222222;
+        }
+        .cards {
+            border: thin solid var(--dark-color);
+            padding: 1rem;
+        }
+        .card{
+            display: inline-block;
+            background-color: var(--dark-color);
+            color: var(--yellow-color);
+        }
+
+        .card figcaption{
+            padding: 1rem;
+        }
+
+        .rotate-45{
+            transform: rotate(45deg);
+        }
+
+        .rotate-135{
+            transform: rotate(135deg);
+        }
+
+        .opacity-80{
+            opacity: .8;
+        }
+
+        .sepia{
+            filter: sepia(1);
+        }
+        .box {
+            width: 100px;
+            height: 100px;
+            background-color: red;
+        }
+
+        .red {
+            background-color: red;
+        }
+        .green {
+            background-color: green;
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(3,1fr);
+            grid-gap:10px;
+        }
+
+        .gallery__item {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 1px solid black;
+
+        }
+
+        .eventos-flujo div{
+            padding: 4rem;
+            font-size: 2rem;
+            text-align: center;
+        }
+
+        .uno{
+            background-color: yellow;
+        }
+
+        .dos {
+            background-color: gold;
+        }
+
+        .tres {
+            background-color: lightyellow;
+        }
+    </style>
+</head>
+<body>
+    <h1 id='title' class='titleClass'>DOM - EVENTOS</h1>
+    <div id="box" class="box red"></div>
+    <button id='button'> Click Me!</button>
+    <button onclick="alert('Hola')">Eventos atributos HTML</button>
+    <button onclick="holaMundo()">Eventos atributos HTML II</button>
+    <button id="evento-semantico">Eventos Semanticos</button>
+    <button id="evento-multiple">Eventos Multiple</button>
+    <button id="evento-remover">Remover Eventos</button>
+
+    
+
+    <div id="gallery" class="gallery">
+        <div class="gallery__item">1</div>
+        <div class="gallery__item">2</div>
+        <div class="gallery__item">3</div>
+        <div class="gallery__item">4</div>
+        <div class="gallery__item">5</div>
+        <div class="gallery__item">6</div>
+        <div class="gallery__item">7</div>
+        <div class="gallery__item">8</div>
+        <div class="gallery__item">9</div>
+    </div>
+
+    <h3>Flujo de eventos</h3>
+
+    <section class="eventos-flujo">
+        <div class="uno">
+            1
+            <div class="dos">
+                2
+                <div class="tres">
+                    3
+                    <a href="https://jonmircha.com/" target="_blank" rel="noopener">Jon Mircha</a>
+                </div>
+            </div>
+        </div>
+
+    </section>
+    
+    <p id="que-es">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Unde, ab magni. Sit enim aliquam deleniti maiores laborum labore! Consectetur dignissimos doloribus veniam ipsum ad quos harum voluptates eos numquam facilis!</p>
+    <nav id="menu">
+        <ul>
+            <li><a href="#">Sección 1</a></li>
+            <li><a href="#">Sección 2</a></li>
+            <li><a href="#">Sección 3</a></li>
+            <li><a href="#">Sección 4</a></li>
+            <li><a href="#">Sección 5</a></li>
+        </ul>
+    </nav>
+    <form id="form">
+
+        <label for="name">Name</label>
+        <input id="name" type="text" name="nombre" placeholder="Nombre">
+        <input type="submit" value="Enviar">
+        <a href="https://www.google.com/" class="link-dom" id="link" style="background-color: orange; color:white;" data-set="1" data-description="Document Object Model">DOM</a>
+    </form>
+
+    <script src="./scripts/46-DOM.js"></script>
+</body>
+</html>
