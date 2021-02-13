@@ -18,5 +18,5 @@ let temporizador = setInterval(()=> {
 
 //limpia un setInterval
 //clearTimeout(temporizador); // para que funciones el clear la funcion debe estar en una variable
-//clearInterval(temporizador);
+//clearInterval(temporizador); // lo mismo que el timeout paro con frecuencia de tiempo
 //console.log('despues del clear');

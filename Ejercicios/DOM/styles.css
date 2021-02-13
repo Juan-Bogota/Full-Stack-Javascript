@@ -1,0 +1,223 @@
+/* STYLES CSS */
+
+:root {
+  --color-yellow: #f7df1e;
+  --color-black: #222222;
+  --main-font: sans-serif;
+  --modal-color-yellow: rgba(247, 222, 30, 0.85);
+  --modal-color-black: rgba(34, 34, 34, 0.85);
+
+  --font-size: 16px;
+  --opacity: 0.8;
+
+  --container-width: 1200px;
+}
+
+html {
+  box-sizing: border-box;
+  font-family: var(--main-font);
+  font-size: var(--font-size);
+  scroll-behavior: smooth;
+}
+
+*,
+*::after,
+*::before {
+  box-sizing: inherit;
+}
+
+body {
+  overflow-x: hidden;
+  margin: 0;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/********* SECCION TITULO ****************/
+
+.header {
+  position: sticky;
+  top: 0;
+  padding: 1rem;
+  background-color: var(--color-yellow);
+  color: var(--color-black);
+}
+
+.header h1 {
+  margin: 0 auto;
+  text-align: center;
+}
+
+/************ MENU HAMBURGUESA *****************/
+
+.panel {
+  position: fixed;
+  z-index: 9;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: var(--modal-color-black);
+  /*arriba ocultarlo */
+
+  /* 
+  // efectos de traslacion(
+  transform: translate(0, -100%);
+
+  transform: translate(0, 100%); //abajo
+  transform: translate(-100%, 0); //izq
+  transform: translate(10%0, 0); // der
+  transition: transform 0.3s ease;
+  //efecto con opacidad
+  visibility: hidden;
+  transition: transform 0.3s ease, opacity 0.5s ease;
+  // display
+  display: none;
+  */
+  opacity: 0;
+  transition: transform 0.3s ease, opacity 0.5s ease;
+  transform: translate(0, 100%);
+}
+
+.panel.is-active {
+  /*
+  //translacion
+  transform: translate(0, 0);
+  //opacidad
+  visibility: visible;
+  opacity: 1;
+  //display
+  display: block;
+  */
+  transform: translate(0, 0);
+
+  opacity: 1;
+}
+
+.panel-btn {
+  /* Posicion fija */
+  position: fixed;
+  height: 64px;
+  z-index: 10;
+  bottom: 1vh;
+  right: 1vw;
+  border-radius: 50%;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--color-yellow) !important;
+}
+
+/************  SCROOL UP BUTTON ***********/
+
+.scroll {
+  /* Posicion fija */
+  position: fixed;
+  z-index: 10;
+  bottom: 1vh;
+  right: calc(4.75rem + 1vw);
+  border-radius: 50%;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--color-yellow);
+  border: none;
+  width: 64px;
+  height: 64px;
+  cursor: pointer;
+  opacity: 0;
+  /* also add a translate effect */
+  transform: translateY(100px);
+  /* and a transition */
+  transition: all 0.3s ease;
+}
+
+/* added showBtn class */
+.showBtn {
+  opacity: 1;
+  transform: translateY(0px);
+}
+
+.scroll:hover {
+  background-color: var(--modal-color-yellow);
+}
+
+.scroll i {
+  font-size: 2rem;
+}
+
+/************* MAIN SECTION *************************/
+
+section {
+  padding: 2rem;
+  padding-top: 4rem;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  max-width: var(--container-width);
+  min-height: 100vh;
+  text-align: center;
+}
+
+/************* SECTION NAV BAR **********/
+
+.navbar {
+  width: inherit;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  text-align: center;
+}
+
+.navbar a {
+  padding: 2rem;
+  text-decoration: none;
+  width: inherit;
+  display: block;
+  color: var(--color-black);
+  font-size: 2rem;
+  font-weight: bold;
+  color: var(--color-yellow);
+  transition: all 0.3s ease;
+}
+
+.navbar a:hover {
+  background-color: var(--modal-color-yellow);
+  color: var(--color-black);
+}
+
+/*************** utilidades **********************/
+.yellow {
+  background: var(--color-yellow);
+}
+
+/***** RELOJ ****/
+
+.escribir-reloj {
+  display: none;
+}
+
+.escribir-reloj.is-active {
+  display: block;
+}
+
+/******** SECCION 2 EVENTOS TECLADO ******/
+
+.black-rectangle {
+  background-color: var(--modal-color-black);
+  height: 50vh;
+  display: flex;
+}
+
+.yellow-ball {
+  background-color: var(--color-yellow);
+  margin: auto;
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+}

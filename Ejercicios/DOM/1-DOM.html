@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOM EJERCICIOS</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/hamburgers/1.1.3/hamburgers.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
+</head>
+
+<body>
+    <header class="header yellow">
+        <h1>Ejercicios del DOM</h1>
+    </header>
+        
+    <button class="panel-btn hamburger hamburger--collapse yellow" id="button-menu" type="button">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+    <button class="scroll" id="scroll" type="button">
+        <i class="fas fa-level-up-alt"></i>
+    </button>
+    <aside class="panel">
+        <nav class="navbar">
+                <a href="#section1" class="section1">Reloj Digital y Alarma sonora</a>
+                <a href="#section2" class="section2">Eventos del Teclado</a>
+                <a href="#section3" class="section3">Countdown</a>
+                <a href="#section4" class="section4">Seccion 4</a>
+                <a href="#section5" class="section5">Seccion 5</a>
+
+            
+        </nav>
+    </aside>
+    <main>
+        <section class="section" id="section1">
+            <h2>Reloj Digital y Alarma sonora</h2>
+            <div class="digital">
+                <span id="escribir-reloj" class="escribir-reloj"></span>
+            </div>
+            <div class="buttons-reloj">
+                <button id="iniciar-reloj" type="button">
+                    Iniciar Reloj
+                </button>
+                <button id="detener-reloj" type="button">
+                    Detener Reloj
+                </button>
+                <button  id="iniciar-alarma"type="button">
+                    Iniciar  Alarma
+                </button>
+                <button id="detener-alarma" type="button">
+                    Detener Alarma
+                </button>
+            </div>
+            
+            
+
+        </section>
+        <section class="section" id="section2">
+            <h2>Eventos del Teclado</h2>
+            <article class="black-rectangle" id="rectangle">
+                <div class="yellow-ball" id="ball">
+
+                </div>
+            </article>
+
+        </section>
+        <section class="section" id="section3">
+            <h2>Countdown NEW YEAR 2022</h2>
+            <div><span id="countdown"></span></div>
+                
+        </section>
+        <section class="section" id="section4">
+            <h2>Seccion 4</h2>
+        </section>
+        <section class="section" id="section5">
+            <h2>Seccion 5</h2>
+        </section>
+    </main>
+    <script src="index_dom.js" type="module"></script>
+    
+
+</body>
+</html>
