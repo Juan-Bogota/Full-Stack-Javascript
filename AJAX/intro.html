@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ajax</title>
+</head>
+<body>
+    <h1>AJAX: Asynchronous JavaScript & XML</h1>
+    <img src="../images/ajax.PNG" alt="ajax">
+
+    <h3>Metodos Nativos</h3>
+    <ul>
+        <li>ActiveXObject (IE8 e inferiores</li>
+        <li>XMLHttpRequest</li>
+        <li>API Fetch</li>
+    </ul>
+    <h3>Librerias Externas</h3>
+    <ul>
+        <li>jQuery.ajax()</li>
+        <li>axios</li>
+        <li>etc.</li>
+    </ul>
+    <p>Ajax no es una tecnologia en si mismo. E realidad, se trata de varias tecnologias que se unen:</p>
+    <ul>
+        <li><b>HTML Y CSS</b> para crear ua presentación basada en estándares</li>
+        <li><b>DOM</b> para la interaccion y manipulacion dinamica de la presentación</li>
+        <li><b>HTML, XML y JSON</b> para el intercambio asincrono de informacion</li>
+        <li><b>XMLHttpRequest o Fecth</b> para el intercambio asincrono de informacion</li>
+        <li><b>JavaScript</b>Para unir todas las tecnologias</li>
+        <li><b>Estado de la peticion ASINCRONA</b> 
+            <ul>
+                <li>READY_STATE_UNININITIALIZED = 0</li>
+                <li>READY_STATE_LOADING = 1</li>
+                <li>READY_STATE_LOADED = 2</li>
+                <li>READY_STATE_INTERACTIVE = 3</li>
+                <li>READY_STATE_COMPLETE = 4</li>
+            </ul>
+        </li>
+        <li>COdigos estados de respuesta HTTP</li>
+    </ul>
+    <img src="../images/web.PNG" alt="web">
+    <img src="../images/ajax1.PNG" alt="ajax">
+    <p>Peticion en el protocolo Http esos datos(HTML,CSS,JS) quedan en un objeto</p>
+    <P>Es que AJax es asíncrono Qué significa esto. Normalmente cuando hacemos una petición y esperamos una respuesta en el navegador se queda cargando
+    y hasta que no hemos recibido todos los datos pues no carga la página.</P>
+    <P>Hasta que no ha recibido todos los datos pues YouTube no se ve ni se puede utilizar entonces con Ayax
+
+        lo que conseguimos es que se cargue la página y todos los datos que hagamos como petición al servidor
+        
+        lleguen más tarde porque como normalmente cuando hacemos una petición Ayax estamos haciendo una consulta
+        
+        a una base de datos o estamos haciendo una consulta a una API que nos devuelve una serie de datos. <br>
+        
+        Pues si estamos pidiendo muchos datos es posible que la petición tarde y puede tardar milisegundos o
+        
+        se pueda retrasar uno o dos segundos. <br>
+        
+        Entonces para qué durante ese tiempo la página siga funcionando.
+        
+        Lo que hace Ajax es trabajar de forma asíncrona y eso significa que no está sincronizado con la página</P>
+
+    </body>
+</html>

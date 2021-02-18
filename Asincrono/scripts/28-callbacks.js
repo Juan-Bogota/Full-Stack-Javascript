@@ -6,7 +6,7 @@
 // pero como el 2 no esta listo podria dar error. 
 
 
-  // Codigo Asincrono No Bloqueante (tema anterior vs callbacks)
+  // Codigo Asincrono  No Bloqueante (tema anterior vs callbacks)
   (()=> {
     console.log('Asincrono');
     console.log('Inicio');
