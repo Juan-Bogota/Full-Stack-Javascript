@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ShowDown</title>
+
+</head>
+<body>
+    <h1>Showdown</h1>
+    <section id="showdown">
+
+    </section>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/1.9.1/showdown.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+        const d = document,
+            $p = d.createElement('p');
+
+        const getData = async() =>{
+
+            try {
+                let res = await axios.get('archivos/README.md');
+                let converter = new showdown.Converter();
+                let html = converter.makeHtml(res.data);
+                $p.innerHTML = html;
+                d.getElementById('showdown').appendChild($p);
+            } catch (error) {
+                console.error(error);
+            }
+        }
+        //getData();    
+        
+        fetch('archivos/README.md')
+        .then(res => res.ok ? res.text(): Promise.reject(res))
+        .then(text =>{
+            //console.log(text);
+            let converter = new showdown.Converter();
+            let html = converter.makeHtml(text);
+            d.getElementById('showdown').innerHTML = html;
+
+        })
+        .catch(err => {
+            console.error(err);
+            let message = err.statusText || 'Error en el archivo';
+            d.getElementById('showdown').innerHTML =  `Error ${err.status}: ${message}`
+        })
+    </script>
+</body>
+</html>

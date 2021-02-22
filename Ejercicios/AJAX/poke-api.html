@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Poke Api</title>
+    <style>
+        .none {
+            visibility: hidden;
+        }
+
+        .pokemones {
+            display: grid;
+            grid-template-columns: repeat(4 , 250px);
+        }
+        span {
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>POKE API</h1>
+    <section id="pagination">
+        <span id=prev class="none"> 🔙 </span>
+        <span id=next> ⏭️</span>    
+    </section>
+    <section id="pokemones" class="pokemones">
+
+    </section>
+    <template id="card-pokemon">
+        <figure>
+            <img>
+            <figcaption></figcaption>
+        </figure>
+
+    </template>
+
+</body>
+
+<script>
+
+    const d = document,
+        $template = d.getElementById('card-pokemon').content,
+        $pokemones = d.getElementById('pokemones'),
+        $prev = d.getElementById('prev'),
+        $next = d.getElementById('next'),
+        $fragment = d.createDocumentFragment();
+
+    let pagination = 0;
+
+
+    const pokeAPI = async (pokemonURL) => {
+        
+        
+        
+        }
+    const setImg = (img, name)=>{
+        
+        $template.querySelector('img').src = img;
+        $template.querySelector('img').alt = name;
+        $template.querySelector('figcaption').textContent = name;
+
+        let $clone = d.importNode($template, true);
+        $fragment.appendChild($clone);
+        }
+
+    const newPage = async () => {
+
+        try {
+            //loader
+
+            let res = await fetch(`https://pokeapi.co/api/v2/pokemon?limit=20&offset=${pagination * 20}`);
+            let json = await res.json();
+            if(!res.ok) throw({status: res.status, statusText: res.statusText})
+            console.log(json);
+            //otra opcion es en href indicar el prev y next
+            (json.previous) ? $prev.classList.remove('none'): $prev.classList.add('none');
+            (json.next) ? $next.classList.remove('none'): $next.classList.add('none');
+            for (let i = 0; i < json.results.length; i++){
+                try {
+                    let res = await fetch(json.results[i].url);
+                    let pokemon = await res.json();
+                    if(!res.ok) throw({status: res.status, statusText: res.statusText})
+                    setImg(pokemon.sprites.front_default, pokemon.name);
+
+                } catch (err) {
+                    console.log(err);
+                    let message = err.statusText || 'Ocurrio un error';
+                    $pokemones.innerHTML = `<p> Error ${err.status}: ${message}</p>`
+                }
+            }
+            $pokemones.appendChild($fragment);
+        } catch (err) {
+            console.log(err);
+            let message = err.statusText || 'Ocurrio un error';
+            $pokemones.innerHTML = `<p> Error ${err.status}: ${message}</p>`
+        }
+        
+    }
+
+
+    d.addEventListener('DOMContentLoaded', newPage);
+    d.addEventListener('click', (e)=> {
+        if(e.target === $prev){
+            pagination--;
+            $pokemones.innerHTML = '';
+            newPage();
+        }
+        if(e.target === $next){
+            pagination++;
+            $pokemones.innerHTML = '';
+            newPage();
+
+        }
+
+    })
+
+</script>
+</html>

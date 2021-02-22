@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TV MAZE API</title>
+    <style>
+        main {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        }
+
+        figure {
+            min-height: 50vh;
+        }
+    </style>
+</head>
+<body>
+    <h1>TV maze <a href="https://www.tvmaze.com/api"> LINK</a></h1>
+    
+    <h2>Buscador de Shows</h2>
+
+    <input type="search" name="name" id="name" placeholder="Buscar....">
+
+    <main>
+        
+    </main>
+    <template id="card-show">
+        <figure>
+            <img>
+            <figcaption></figcaption>
+        </figure>
+    </template>
+</body>
+
+<script>
+
+    const d = document,
+    $template = d.getElementById('card-show').content,
+    $fragment = d.createDocumentFragment(),
+    $main = d.querySelector('main');
+
+
+    d.addEventListener('keyup', async (e)=> {
+        if(e.key === 'Enter'){
+            let word = e.target.value;
+            //console.log(word);
+
+            try {
+                //loader
+                $main.innerHTML = `<img src="archivos/circles.svg" alt="cargando">`;
+
+                let res = await fetch(` http://api.tvmaze.com/search/shows?q=${word}`);
+                let json = await res.json();
+                console.log(res);
+                if(!res.ok) throw({status: res.status, statusText: res.statusText});
+                console.log(json);
+                if(json.length === 0) {
+                    $main.innerHTML = `<p><b>NO HAY RESULTADOS PARA LA PALABRA ${word}`; 
+                }else {
+
+                    json.forEach(el => {
+                        
+                        if(el.show.image){
+                            $template.querySelector('img').src = el.show.image.medium;
+                            $template.querySelector('img').alt = el.show.name;
+                        } else {
+                            $template.querySelector('img').src = "http://static.tvmaze.com/images/no-img/no-img-portrait-text.png";
+                            $template.querySelector('img').alt = `Not found imagen for ${el.show.name}`;
+                        }
+                        
+                        
+                        $template.querySelector('figcaption').innerHTML =  `<p><b>${el.show.name}</b></p> ${(el.show.summary)? el.show.summary.slice(0,255): ""}... <a href="${el.show.officialSite || el.show.url}" alt="${el.show.name}" target="_blank" rel="noopener noreferrer">[Ver Mas]</a>"`;
+                        
+                        let $clone = d.importNode($template, true);
+                        $fragment.appendChild($clone);
+                    });
+                    $main.innerHTML = "";
+                    $main.appendChild($fragment);
+                    
+                }
+            } catch (err) {
+                console.log(err);
+                let message = err.statusText || 'Ocurrio un error con la API';
+                $main.innerHTML = `<p>Error ${err.status}: ${err.message}`;
+
+            }
+        }
+        
+    })
+
+    
+
+
+
+
+</script>
+</html>

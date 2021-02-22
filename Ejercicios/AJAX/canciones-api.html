@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Canciones Api</title>
+    <style>
+
+        html {
+            font-family: sans-serif;
+            font-size: 1rem;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            max-width: 250px;
+        }
+        input {
+            margin: 1rem;
+        }
+
+        section {
+            display: flex;
+            flex-direction: column-reverse;
+        }
+
+        section div {
+            max-width: 50%;
+            margin: 1rem;
+        }
+        section img {
+            width: 100%;
+        }
+        blockquote {
+            white-space: pre-wrap;
+            text-align: center;
+        }
+        .nombre, .cancion {
+            font-family: sans-serif;
+            text-align: center;
+        }
+
+        @media screen and (min-width: 800px) {
+            section {
+                flex-direction: row;
+            }
+        }
+
+        
+        .none {
+            display:none;
+        }
+        
+    </style>
+</head>
+<body>
+    <h1>Buscador de canciones</h1>
+    <form>
+
+        <input type="text" name="artist" id="artist" placeholder="Artista...">
+        <input type="text" name="cancion" id="cancion" placeholder="Cancion...">
+        <input type="submit" value="Enviar">    
+    </form>
+
+
+    <main>
+        <div class="cargando none">
+            <img src="./archivos/circles.svg" alt="cargado">
+        </div>
+        <section id=artista>
+            <div>
+                <h1 class="nombre"></h1>
+                <img class="image">
+                <p class="biografia"></p>
+            </div>
+            <aside>
+                <h1 class="cancion"></h1>
+                <blockquote class="lyrics"></blockquote>
+            </aside>
+        </section>
+
+    </main>
+
+  
+    
+</body>
+
+
+<script>
+
+    const d = document,
+        $form = d.querySelector('form'),
+        $main = d.querySelector('main');
+
+    d.addEventListener('submit',async (e) => {
+        e.preventDefault();
+        if(e.target === $form){
+            try {
+
+                //loader
+
+                d.querySelector('.cargando').classList.remove('none');
+                let artista = e.target.artist.value.toLowerCase();
+                let cancion = e.target.cancion.value.toLowerCase();
+                let ApiArtista = fetch(`https://www.theaudiodb.com/api/v1/json/1/search.php?s=${artista}`);
+                let ApiCancion = fetch(`https://api.lyrics.ovh/v1/${artista}/${cancion}`,{
+                    mode: 'cors'
+                });
+                [resArtista, resCancion] = await Promise.all([ApiArtista, ApiCancion])
+                console.log(ApiArtista, ApiCancion);
+                let artistData = await resArtista.json();
+                let cancionData = await resCancion.json();
+                console.log(artistData, cancionData);
+                if(artistData.artists === null) {
+                    d.querySelector('.nombre').textContent = `No exite el artista <mark> ${artista}</mark>`;
+                } else {
+                    d.querySelector('.cargando').classList.add('none');
+                    d.querySelector('.nombre').textContent = artista.toUpperCase();
+                    d.querySelector('.image').src = artistData.artists[0].strArtistClearart || artistData.artists[0].strArtistFanart;
+                    d.querySelector('.image').alt = artista;
+                    
+                    d.querySelector('.biografia').textContent = artistData.artists[0].strBiographyES || artistData.artists[0].strBiographyEN; 
+                }
+                if(cancionData.error){
+                    d.querySelector('.cancion').textContent = `No existe el cancion <mark> ${cancion} del artista ${artista}</mark>`;
+                }else{
+
+                    d.querySelector('.cancion').textContent = cancion;
+                    d.querySelector('.lyrics').textContent = cancionData.lyrics;
+                }
+
+               
+            } catch (error) {
+                console.log(error);   
+
+            }
+        }
+
+    })
+
+    
+</script>
+</html>
