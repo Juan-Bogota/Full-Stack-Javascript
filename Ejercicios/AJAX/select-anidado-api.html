@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API SEPOMEX</title>
+</head>
+<body>
+    <h1>Selects Anidados</h1>
+    <h3>Mexico</h3>
+
+    <form>
+        <label for="estados">Estado: </label>
+        <select name="estados" id="estados"> 
+            <option value="estado">---Escoga un estado---</option>
+        </select>
+        <br> <br>
+        <label for="municipios">Municipio:</label>
+        <select name="municipios" id="municipios">
+            <option value="municipio">---Escoga un municipio---</option>
+        </select>
+        <br> <br>
+        <label for="colonias">Colonia:</label>
+        <select name="colonias" id="colonias">
+            <option value="colonia">---Escoga una colonia---</option>
+
+            
+        </select>
+        <br> <br>
+        <input type="submit" value="Enviar">
+    </form>
+
+    <main>
+
+    </main>
+
+    
+</body>
+
+<script>
+const d = document,
+    $form = d.querySelector('form'),
+    $main = d.querySelector('main');
+
+    d.addEventListener('change', async (e)=>{
+        if(e.target === $form.estados){
+            let estado = e.target.value;
+            
+            if(estado === 'estado')  {
+                $form.municipios.innerHTML = '<option value="mubnicipio">---Escoga un municipio---</option>';
+                return;
+            };
+            try {
+                let apiMunicipios = await fetch(`https://api-sepomex.hckdrk.mx/query/get_municipio_por_estado/${estado}`);
+                let resMunicipios = await apiMunicipios.json();
+                if(resMunicipios.error) throw ({status: resMunicipios.code_error, statusText: resMunicipios.error_message});
+
+                console.log(resMunicipios.response)
+                $form.municipios.innerHTML = '<option value="mubnicipio">---Escoga un municipio---</option>';
+                resMunicipios.response.municipios.forEach(element => {
+                const $option = d.createElement('option');
+                $option.setAttribute('value', element);
+                $option.textContent = element;
+                $form.municipios.appendChild($option);
+                });
+            }
+            catch (err) {
+                console.log(err);
+                let message = err.statusText || 'Ocurrio un error';
+                $main.innerHTML = `<p><b> Error ${err.status}: ${message}`;
+            }
+        }
+        if(e.target === $form.municipios){
+            let municipio = e.target.value;
+            if(municipio === 'municipio')  {
+                $form.colonias.innerHTML = '<option value="mubnicipio">---Escoga una colonia---</option>';
+                return;
+            };
+            try {
+                let apiColonias = await fetch(`https://api-sepomex.hckdrk.mx/query/get_colonia_por_municipio/${municipio}`);
+                let resColonias = await apiColonias.json();
+                if(resColonias.error) throw ({status: resColonias.code_error, statusText: resColonias.error_message});
+
+                let coloniaSort = resColonias.response.colonia.sort();
+                $form.colonias.innerHTML = '<option value="mubnicipio">---Escoga un municipio---</option>';
+
+                const letter = (array, caracter)=>{
+                    
+                    let exp = (caracter !== '#') ? new RegExp(`^${caracter}`, 'ig'):new RegExp(`^\\d`, 'ig') ;
+                    
+                    return array.filter(el => exp.test(el))
+                }
+
+                let abecedario = '#abcdefghijklmnopqrstuvwxyz';
+                let obj = {};
+                for(let letra of abecedario){
+                    let array = letter(coloniaSort ,letra);
+                    if(array.length !== 0) obj[letra] = array;
+                }
+
+                
+                for (const key in obj) {
+                    
+                    const $optgroup = d.createElement('optgroup');
+                    $optgroup.label = key.toUpperCase();
+                    obj[key].forEach(el =>{
+                        const $option = d.createElement('option');
+                        $option.setAttribute('value', el);
+                        $option.textContent = el;
+                        $optgroup.appendChild($option);
+                    })
+                    $form.colonias.appendChild($optgroup);
+
+                
+
+                }
+                
+            }
+            catch (err) {
+                console.log(err);
+                let message = err.statusText || 'Ocurrio un error';
+                $main.innerHTML = `<p><b> Error ${err.status}: ${message}`;
+            }
+
+
+        }
+    })
+
+    d.addEventListener('DOMContentLoaded', async (e)=> {
+
+        try {
+            let apiEstados = await fetch('https://api-sepomex.hckdrk.mx/query/get_estados');
+            let resEstados = await apiEstados.json();
+            if(resEstados.error) throw ({status: resEstados.code_error, statusText: resEstados.error_message});
+            console.log(resEstados.response)
+            resEstados.response.estado.forEach(element => {
+                const $option = d.createElement('option');
+                $option.setAttribute('value', element);
+                $option.textContent = element;
+                $form.estados.appendChild($option);
+            });
+
+
+        } catch (err) {
+            console.log(err);
+            let message = err.statusText || 'Ocurrio un error';
+            $main.innerHTML = `<p><b> Error ${err.status}: ${message}`;
+        }
+
+    })
+
+</script>
+</html>
